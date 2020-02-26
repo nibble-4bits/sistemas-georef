@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
     <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
@@ -19,7 +20,7 @@
 </head>
 
 <body>
-    <!-- Navigation -->
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
         <div class="container">
             <a class="navbar-brand" href="#">Start Bootstrap</a>
@@ -48,34 +49,88 @@
         </div>
     </nav>
 
-    <!-- Page Content -->
+    <!-- Contenido del sitio -->
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h1 class="mt-5">Mis proyectos de Sistemas Georeferenciados</h1>
-                <!-- <p class="lead">Complete with pre-defined file paths and responsive navigation!</p> -->
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-12 d-flex justify-content-center">
-                <ul>
-                    <li>
-                        <a href="./practica1/">Practica 1</a>
-                    </li>
-                    <li>
-                        <a href="./practica2/">Practica 2</a>
-                    </li>
-                    <li>
-                        <a href="./practica3/">Practica 3</a>
-                    </li>
-                    <li>
-                        <a href="./practica4/">Practica 4</a>
-                    </li>
-                    <li>
-                        <a href="./practica5/">Practica 5</a>
-                    </li>
-                </ul>
+        <!-- Tarjetas -->
+        <div class="row mt-5">
+            <div class="card-deck">
+                <!-- Tarjeta practica 1 -->
+                <div class="card pt-3 d-flex flex-column text-center">
+                    <img src="./assets/img/marker256x256.png" alt="Card image" class="card-img-top">
+                    <div class="card-body">
+                        <h4 class="card-title border-bottom pb-3">Práctica 1</h4>
+                        <p class="card-text">Utilizar Javascript Maps API de Google para insertar un mapa y
+                            un marcador en la página</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="./practica1/" class="btn btn-primary">Revisar práctica</a>
+                    </div>
+                </div>
+                <!-- Tarjeta practica 2 -->
+                <div class="card pt-3 d-flex flex-column text-center">
+                    <img src="./assets/img/marker256x256.png" alt="Card image" class="card-img-top">
+                    <div class="card-body">
+                        <h4 class="card-title border-bottom pb-3">Práctica 2</h4>
+                        <p class="card-text">Mostrar las propiedades del objeto <i>Navigator</i></p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="./practica2/" class="btn btn-primary">Revisar práctica</a>
+                    </div>
+                </div>
+                <!-- Tarjeta practica 3 -->
+                <div class="card pt-3 d-flex flex-column text-center">
+                    <img src="./assets/img/marker256x256.png" alt="Card image" class="card-img-top">
+                    <div class="card-body">
+                        <h4 class="card-title border-bottom pb-3">Práctica 3</h4>
+                        <p class="card-text">Obtener y mostrar las coordenadas del dispositivo actual</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="./practica3/" class="btn btn-primary">Revisar práctica</a>
+                    </div>
+                </div>
+                <!-- Divisor de tarjetas cada 3 tarjetas -->
+                <div class="w-100 py-2"></div>
+                <!-- Tarjeta practica 4 -->
+                <div class="card pt-3 d-flex flex-column text-center">
+                    <img src="./assets/img/marker256x256.png" alt="Card image" class="card-img-top">
+                    <div class="card-body">
+                        <h4 class="card-title border-bottom pb-3">Práctica 4</h4>
+                        <p class="card-text">Utilizar Maps Static API para insertar una imagen de un mapa</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="./practica4/" class="btn btn-primary">Revisar práctica</a>
+                    </div>
+                </div>
+                <!-- Tarjeta practica 5 -->
+                <div class="card pt-3 d-flex flex-column text-center">
+                    <img src="./assets/img/marker256x256.png" alt="Card image" class="card-img-top">
+                    <div class="card-body">
+                        <h4 class="card-title border-bottom pb-3">Práctica 5</h4>
+                        <p class="card-text">Insertar un popup <i>(InfoWindow)</i> informativo en el mapa utilizando
+                            Javascript
+                            Maps API</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="./practica5/" class="btn btn-primary">Revisar práctica</a>
+                    </div>
+                </div>
+                <!-- Tarjeta practica 6 -->
+                <div class="card pt-3 d-flex flex-column text-center">
+                    <img src="./assets/img/marker256x256.png" alt="Card image" class="card-img-top">
+                    <div class="card-body">
+                        <h4 class="card-title border-bottom pb-3">Práctica 6</h4>
+                        <p class="card-text"><i>Próximamente</i></p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary">Revisar práctica</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
