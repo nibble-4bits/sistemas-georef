@@ -1,0 +1,9 @@
+body{
+    background-color: #efefef;
+}
+
+.card-img-top {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto; /* Alinea la imagen en el centro de su contenedor */
+}
