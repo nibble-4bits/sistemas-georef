@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Lista de productos</h1>
+
+    <form id="formulario">
+        <input type="text" name="nombre" id="nombre" placeholder="Nombre">
+        <input type="text" name="codigo" id="codigo" placeholder="Código">
+        <button type="submit">Agregar</button>
+    </form>
+
+    <ul id="lista"></ul>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCTvu5Nd6KpCsEFvveJ-KyzxJMSu3GWsfo",
+            authDomain: "sistemasgeoref65746.firebaseapp.com",
+            databaseURL: "https://sistemasgeoref65746.firebaseio.com",
+            projectId: "sistemasgeoref65746",
+            storageBucket: "sistemasgeoref65746.appspot.com",
+            messagingSenderId: "68602468881",
+            appId: "1:68602468881:web:60d720f37af333d7f2afb0"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Lógica del sitio web
+        const listaProductos = document.getElementById('lista');
+
+        db.collection('productos').get().then(snapshot => {
+            console.log(snapshot.docs);
+        });
+    </script>
+</body>
+
+</html>
