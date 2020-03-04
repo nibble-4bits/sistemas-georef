@@ -76,15 +76,20 @@
         const formulario = document.getElementById('formulario');
 
         formulario.addEventListener('submit', evt => {
-            evt.preventDefault();
+            if (evt.isTrusted) {
+                evt.preventDefault();
 
-            db.collection('productos').add({
-                nombre: formulario.nombre.value,
-                codigo: formulario.codigo.value
-            });
+                db.collection('productos').add({
+                    nombre: formulario.nombre.value,
+                    codigo: formulario.codigo.value
+                });
 
-            formulario.nombre.value = '';
-            formulario.codigo.value = '';
+                formulario.nombre.value = '';
+                formulario.codigo.value = '';
+            }
+            else {
+                console.log('Buen intento, creías que no iba a proteger mi base de datos? ;)');
+            }
         });
 
         db.collection('productos').onSnapshot(snapshot => {
