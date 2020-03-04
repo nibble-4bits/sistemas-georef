@@ -4,30 +4,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
     <title>Document</title>
 </head>
 
 <body>
-    <h1>Lista de productos</h1>
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Lista de productos</h1>
+                </div>
+            </div>
 
-    <form id="formulario">
-        <input type="text" name="nombre" id="nombre" placeholder="Nombre">
-        <input type="text" name="codigo" id="codigo" placeholder="Código">
-        <button type="submit">Agregar</button>
-    </form>
+            <form id="formulario">
+                <div class="row">
+                    <div class="col-4">
+                        <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre">
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" type="text" name="codigo" id="codigo" placeholder="Código">
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-primary" type="submit">Agregar</button>
+                    </div>
+                </div>
+            </form>
 
-    <ul id="lista"></ul>
+            <div class="row">
+                <div class="col-12">
+                    <ul id="lista" class="list-group"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Your web app's Firebase configuration
-        var firebaseConfig = {
+        let firebaseConfig = {
             apiKey: "AIzaSyCTvu5Nd6KpCsEFvveJ-KyzxJMSu3GWsfo",
             authDomain: "sistemasgeoref65746.firebaseapp.com",
             databaseURL: "https://sistemasgeoref65746.firebaseio.com",
@@ -41,10 +70,62 @@
 
         // Lógica del sitio web
         const listaProductos = document.getElementById('lista');
+        const db = firebase.firestore();
 
-        db.collection('productos').get().then(snapshot => {
-            console.log(snapshot.docs);
+        const lista = document.getElementById('lista');
+        const formulario = document.getElementById('formulario');
+
+        formulario.addEventListener('submit', evt => {
+            evt.preventDefault();
+
+            db.collection('productos').add({
+                nombre: formulario.nombre.value,
+                codigo: formulario.codigo.value
+            });
+
+            formulario.nombre.value = '';
+            formulario.codigo.value = '';
         });
+
+        db.collection('productos').onSnapshot(snapshot => {
+            let changes = snapshot.docChanges();
+
+            changes.forEach(change => {
+                if (change.type === 'added') {
+                    renderProductos(change.doc);
+                }
+                else if (change.type === 'removed') {
+                    lista.removeChild(document.getElementById(change.doc.id));
+                }
+            });
+        });
+
+        function renderProductos(doc) {
+            let li = document.createElement('li');
+            let spanNombre = document.createElement('span');
+            let spanCodigo = document.createElement('span');
+            let btnBorrar = document.createElement('button');
+
+            spanNombre.textContent = doc.data().nombre;
+            spanCodigo.textContent = doc.data().codigo;
+            btnBorrar.textContent = 'Borrar';
+
+            btnBorrar.classList.add('btn');
+            btnBorrar.classList.add('btn-danger');
+
+            li.id = doc.id;
+
+            btnBorrar.addEventListener('click', evt => {
+                let id = evt.target.parentElement.getAttribute('id');
+                db.collection('productos').doc(id).delete();
+            });
+
+            li.appendChild(btnBorrar);
+            li.appendChild(spanNombre);
+            li.appendChild(spanCodigo);
+
+            lista.appendChild(li);
+        }
     </script>
 </body>
 
