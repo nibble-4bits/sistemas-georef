@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
     <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
@@ -21,7 +22,6 @@
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
-    <!-- <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script> -->
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
     <script defer src="index.js"></script>
     <title>Firebase Firestore</title>
@@ -29,37 +29,49 @@
 
 <body>
     <div class="container-fluid">
-        <div class="container">
-            <div class="row">
+        <div id="main-container" class="container mt-5 bg-white rounded">
+            <div class="row pt-5">
                 <div class="col-12">
-                    <h1>Lista de productos</h1>
+                    <h1 class="text-center">Lista de productos</h1>
                 </div>
             </div>
 
-            <form id="formulario">
-                <div class="row">
-                    <div class="col-4">
-                        <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre">
+            <form id="formulario" class="form-inline d-flex justify-content-center">
+                <div class="form-row mt-4">
+                    <div class="col">
+                        <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre"
+                            autocomplete="off">
                     </div>
-                    <div class="col-4">
-                        <input class="form-control" type="text" name="codigo" id="codigo" placeholder="Código">
+                    <div class="col">
+                        <input class="form-control" type="text" name="codigo" id="codigo" placeholder="Código"
+                            autocomplete="off">
                     </div>
-                    <div class="col-4">
-                        <button class="btn btn-primary" type="submit">Agregar</button>
+                    <div class="col">
+                        <button class="btn btn-primary" type="submit"><i class="fas fa-plus-circle"></i></button>
                     </div>
                 </div>
             </form>
 
-            <div class="row">
-                <div class="col-12">
-                    <ul id="lista" class="list-group"></ul>
+
+            <div class="row mt-5 pb-5">
+                <div class="col-12 d-flex justify-content-center">
+                    <table id="item-table" class="text-center">
+                        <thead>
+                            <tr>
+                                <td>Producto</td>
+                                <td>Código</td>
+                                <td>Eliminar</td>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="warning-overlay" style="display: none; z-index: 100; position: absolute; top: 0; left: 0; background-color: #d3d3d3a6;">
-        <div class="wrapper" style="display: flex; justify-content: center; align-items: center; height: 100vh; width: 100vw;">
+    <div class="warning-overlay">
+        <div class="wrapper">
             <h1 style="color: red;">Página inhabilitada</h1>
         </div>
     </div>
