@@ -34,7 +34,7 @@ td {
     background-color: #d2d2d2a6;
 }
 
-.warning-overlay wrapper {
+.warning-overlay .wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
