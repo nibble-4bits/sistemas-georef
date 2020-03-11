@@ -3,7 +3,7 @@ const mapProps = {
     zoom: 14
 };
 
-function initMap(params) {
+function initMap() {
     let map = new google.maps.Map(document.getElementById('map'), mapProps);
     let icon = {
         url: 'https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Ball-Pink.png',
