@@ -18,6 +18,7 @@ function initMap(params) {
     });
 
     if (navigator.geolocation) {
+        moverPosicion(marcador);
         setInterval(() => {
             moverPosicion(marcador);
         }, 2000);
