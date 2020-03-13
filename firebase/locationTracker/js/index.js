@@ -10,6 +10,13 @@ if (!localStorage.getItem('user_id')) {
 const userId = localStorage.getItem('user_id');
 
 window.addEventListener('beforeunload', evt => {
+    evt.preventDefault();
+    evt.returnValue = '';
+    firebaseDB.db.collection('user_locations').doc(userId).delete();
+});
+window.addEventListener('unload', evt => {
+    evt.preventDefault();
+    evt.returnValue = '';
     firebaseDB.db.collection('user_locations').doc(userId).delete();
 });
 
