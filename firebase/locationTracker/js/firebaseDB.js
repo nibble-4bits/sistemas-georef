@@ -24,20 +24,24 @@ class FirebaseDB {
             snapshot.docChanges().forEach(change => {
                 const doc = change.doc.data();
                 let coords = new globalThis.google.maps.LatLng(doc.lat, doc.lng);
+                let iconUrl = null;
+
+                if (localStorage.getItem('user_id') === change.doc.id) iconUrl = 'https://segat.gob.pe/images/marker_router.png';
+                else iconUrl = 'https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Ball-Pink.png';
+
+                let icon = {
+                    url: iconUrl,
+                    scaledSize: new globalThis.google.maps.Size(48, 48),
+                    origin: new globalThis.google.maps.Point(0, 0)
+                };
+
+                let marker = new globalThis.google.maps.Marker({
+                    position: coords,
+                    map: globalThis.map,
+                    icon
+                });
 
                 if (change.type === 'added') {
-                    let icon = {
-                        url: 'https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Ball-Pink.png',
-                        scaledSize: new globalThis.google.maps.Size(48, 48),
-                        origin: new globalThis.google.maps.Point(0, 0)
-                    };
-
-                    let marker = new globalThis.google.maps.Marker({
-                        position: coords,
-                        map: globalThis.map,
-                        icon
-                    });
-
                     this.markers[change.doc] = marker;
                 }
                 else if (change.type === 'modified') {
