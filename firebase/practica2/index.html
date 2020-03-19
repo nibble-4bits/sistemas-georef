@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <!-- Font Awesome icons -->
+    <script src="https://kit.fontawesome.com/358c7d921e.js" crossorigin="anonymous"></script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
+
+    <script defer src="database.js"></script>
+    <script defer src="constants.js"></script>
+    <script defer src="renderProductos.js"></script>
+    <script defer src="service.js"></script>
+    <script defer src="addProduct.js"></script>
+    <title>Firebase Firestore</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div id="main-container" class="container mt-5 bg-white rounded">
+            <div class="row pt-5">
+                <div class="col-12">
+                    <h1 class="text-center">Lista de productos</h1>
+                </div>
+            </div>
+
+            <form id="formulario" class="form-inline d-flex justify-content-center">
+                <div class="form-row mt-4">
+                    <div class="col">
+                        <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre"
+                            autocomplete="off" required>
+                    </div>
+                    <div class="col">
+                        <input class="form-control" type="text" name="codigo" id="codigo" placeholder="Código"
+                            autocomplete="off" required>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary" type="submit"><i class="fas fa-plus-circle"></i></button>
+                    </div>
+                </div>
+            </form>
+
+
+            <div class="row mt-5 pb-5">
+                <div class="col-12 d-flex justify-content-center">
+                    <table id="item-table" class="text-center">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Código</th>
+                                <th>Eliminar</th>
+                                <th>Confirmar<br>cambio</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="warning-overlay">
+        <div class="wrapper">
+            <h1>Página inhabilitada</h1>
+        </div>
+    </div>
+</body>
+
+</html>
