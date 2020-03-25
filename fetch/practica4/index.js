@@ -34,37 +34,35 @@ async function initMap() {
 
 function generateCountryInfoHTML(country) {
     return `
-        <div style="width: 10em;">
-            <div style="display:flex; justify-content: center; padding-bottom: 1em;">
+        <div style="width: 12em;">
+            <div style="display:flex; flex-direction: column; align-items: center; padding-bottom: 1em;">
                 <img src="${country.countryInfo.flag}" alt="Bandera de ${country.country}" style="width: 60%;">
+                <h3 style="margin: 3px 0 0 0;">${country.country}</h3>
             </div>
             <div style="display:flex; flex-direction: column; align-items: center;">
                 <div>
-                    <strong>País: </strong>${country.country}<br>
+                    <b>Casos: </b>${country.cases}<br>
                 </div>
                 <div>
-                    <strong>Casos: </strong>${country.cases}<br>
+                    <b>Nuevos hoy: </b>${country.todayCases}<br>
                 </div>
                 <div>
-                    <strong>Nuevos hoy: </strong>${country.todayCases}<br>
+                    <b>Muertes: </b>${country.deaths}<br>
                 </div>
                 <div>
-                    <strong>Muertes: </strong>${country.deaths}<br>
+                    <b>Muertes hoy: </b>${country.todayDeaths}<br>
                 </div>
                 <div>
-                    <strong>Muertes hoy: </strong>${country.todayDeaths}<br>
+                    <b>Recuperados: </b>${country.recovered}<br>
                 </div>
                 <div>
-                    <strong>Recuperados: </strong>${country.recovered}<br>
+                    <b>Activos: </b>${country.active}<br>
                 </div>
                 <div>
-                    <strong>Activos: </strong>${country.active}<br>
+                    <b>Críticos: </b>${country.critical}<br>
                 </div>
                 <div>
-                    <strong>Críticos: </strong>${country.critical}<br>
-                </div>
-                <div>
-                    <strong>Casos por millón: </strong>${country.casesPerOneMillion}<br>
+                    <b>Casos por millón: </b>${country.casesPerOneMillion}<br>
                 </div>
             </div>
         </div>
