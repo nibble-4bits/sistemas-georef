@@ -23,7 +23,7 @@ async function initMap() {
         const marker = new google.maps.Marker({
             map: map,
             position: new google.maps.LatLng(country.countryInfo.lat, country.countryInfo.long),
-            title: `${country.country} ${country.cases}`
+            title: `${country.country}`
         });
 
         marker.addListener('click', () => {
