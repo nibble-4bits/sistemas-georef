@@ -15,7 +15,7 @@ async function initMap() {
     const countries = await res.json();
         
     for (const country of countries) {
-        const info = genereateCountryInfoHTML(country);
+        const info = generateCountryInfoHTML(country);
         const infoWindow = new google.maps.InfoWindow({
             content: info
         });
@@ -32,7 +32,7 @@ async function initMap() {
     }
 }
 
-function genereateCountryInfoHTML(country) {
+function generateCountryInfoHTML(country) {
     return `
         <div style="width: 10em;">
             <div style="display:flex; justify-content: center; padding-bottom: 1em;">
