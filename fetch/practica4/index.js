@@ -1,35 +1,45 @@
-var coords = {
-    lat: 0,
-    lng: 0
-}
+'use strict';
 
-var props = {
-    center: coords,
-    zoom: 2
-}
+const BASE_API_URL = 'https://corona.lmao.ninja';
 
 async function initMap() {
-    const map = new google.maps.Map(document.getElementById('map'), props);
-
-    const res = await fetch('https://corona.lmao.ninja/countries');
-    const countries = await res.json();
-        
-    for (const country of countries) {
-        const info = generateCountryInfoHTML(country);
-        const infoWindow = new google.maps.InfoWindow({
-            content: info
-        });
-
-        const marker = new google.maps.Marker({
-            map: map,
-            position: new google.maps.LatLng(country.countryInfo.lat, country.countryInfo.long),
-            title: `${country.country}`
-        });
-
-        marker.addListener('click', () => {
-            infoWindow.open(map, marker);
-        })
+    const props = {
+        center: {
+            lat: 15,
+            lng: 0
+        },
+        zoom: 2
     }
+    const map = new google.maps.Map(document.getElementById('map'), props);
+    let globalData = null;
+    let countriesData = null;
+
+    try {
+        const globalRes = await fetch(`${BASE_API_URL}/all`);
+        globalData = await globalRes.json();
+        cacheAPIData('globalData', globalData);
+    }
+    catch (error) {
+        globalData = retrieveCachedAPIData('globalData');
+        if (!globalData) {
+            // TODO
+        }
+    }
+
+    try {
+        const countriesRes = await fetch(`${BASE_API_URL}/countries`);
+        countriesData = await countriesRes.json();
+        cacheAPIData('countryData', countriesData);
+    }
+    catch (error) {
+        countriesData = retrieveCachedAPIData('countryData');
+        if (!countriesData) {
+            // TODO
+        }
+    }
+
+    updateInfoCards(globalData);
+    addCountryMarkers(countriesData, map);
 }
 
 function generateCountryInfoHTML(country) {
@@ -67,4 +77,50 @@ function generateCountryInfoHTML(country) {
             </div>
         </div>
     `;
+}
+
+function cacheAPIData(key, jsonData) {
+    localStorage.setItem(key, JSON.stringify(jsonData));
+}
+
+function retrieveCachedAPIData(key) {
+    return JSON.parse(localStorage.getItem(key));
+}
+
+function updateInfoCards(globalData) {
+    const divLastUpdated = document.getElementById('lastUpdated');
+    const divGlobalConfirmedCases = document.getElementById('globalConfirmedCases');
+    const divGlobalRecovered = document.getElementById('globalRecovered');
+    const divGlobalDeaths = document.getElementById('globalDeaths');
+
+    divLastUpdated.textContent = new Date(globalData.updated).toLocaleString('es-us', { hour12: true });
+    divGlobalConfirmedCases.textContent = globalData.cases.toLocaleString();
+    divGlobalRecovered.textContent = globalData.recovered.toLocaleString();
+    divGlobalDeaths.textContent = globalData.deaths.toLocaleString();
+}
+
+function addCountryMarkers(countriesData, map) {
+    let arrInfoWindows = [];
+
+    for (const country of countriesData) {
+        const info = generateCountryInfoHTML(country);
+        const infoWindow = new google.maps.InfoWindow({
+            content: info
+        });
+
+        const marker = new google.maps.Marker({
+            map: map,
+            position: new google.maps.LatLng(country.countryInfo.lat, country.countryInfo.long),
+            title: `${country.country}`
+        });
+
+        marker.addListener('click', () => {
+            for (const infoWin of arrInfoWindows) {
+                infoWin.close();
+            }
+            infoWindow.open(map, marker);
+        });
+
+        arrInfoWindows.push(infoWindow);
+    }
 }
