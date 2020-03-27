@@ -9,3 +9,7 @@ body {
 #map {
     height: 75vh;
 }
+
+#global-stats span {
+    font-size: 3vh;
+}
