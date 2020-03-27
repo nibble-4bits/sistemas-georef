@@ -101,6 +101,11 @@ function updateInfoCards(globalData) {
 
 function addCountryMarkers(countriesData, map) {
     let arrInfoWindows = [];
+    const icon = {
+        url: 'https://image.flaticon.com/icons/png/128/2659/2659980.png',
+        scaledSize: new google.maps.Size(24, 24),
+        origin: new google.maps.Point(0, 0)
+    };
 
     for (const country of countriesData) {
         const info = generateCountryInfoHTML(country);
@@ -110,6 +115,7 @@ function addCountryMarkers(countriesData, map) {
 
         const marker = new google.maps.Marker({
             map: map,
+            icon: icon,
             position: new google.maps.LatLng(country.countryInfo.lat, country.countryInfo.long),
             title: `${country.country}`
         });
