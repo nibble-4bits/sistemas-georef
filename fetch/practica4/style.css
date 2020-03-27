@@ -12,4 +12,5 @@ body {
 
 #global-stats span {
     font-size: 3vh;
+    font-weight: 500;
 }
