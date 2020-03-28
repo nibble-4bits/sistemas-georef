@@ -132,3 +132,21 @@ function addCountryMarkers(countriesData, map) {
         arrInfoWindows.push(infoWindow);
     }
 }
+
+async function showModal(modalId) {
+    $(modalId).modal('show')
+    return new Promise((resolve, reject) => {
+        $(modalId).on('shown.bs.modal', evt => {
+            resolve();
+        });
+    })
+}
+
+async function hideModal(modalId) {
+    $(modalId).modal('hide')
+    return new Promise((resolve, reject) => {
+        $(modalId).on('hidden.bs.modal', evt => {
+            resolve();
+        });
+    })
+}
