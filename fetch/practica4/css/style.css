@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+body {
+    min-height: 100vh;
+    background-color: #efefef;
+    font-family: 'Roboto', sans-serif;
+}
+
+#map {
+    height: 75vh;
+}
+
+#global-stats .card-header {
+    font-size: 95%;
+}
+
+#global-stats span {
+    font-size: 3vh;
+    font-weight: 500;
+}
