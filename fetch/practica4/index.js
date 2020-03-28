@@ -14,6 +14,7 @@ async function initMap() {
     let globalData = null;
     let countriesData = null;
 
+    $('#modalLoading').modal('show');
     try {
         const globalRes = await fetch(`${BASE_API_URL}/all`);
         globalData = await globalRes.json();
@@ -37,6 +38,7 @@ async function initMap() {
             // TODO
         }
     }
+    $('#modalLoading').modal('hide');
 
     updateInfoCards(globalData);
     addCountryMarkers(countriesData, map);
