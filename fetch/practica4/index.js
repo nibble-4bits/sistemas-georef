@@ -14,31 +14,26 @@ async function initMap() {
     let globalData = null;
     let countriesData = null;
 
-    $('#modalLoading').modal('show');
+    await showModal('#modalLoading');
     try {
         const globalRes = await fetch(`${BASE_API_URL}/all`);
         globalData = await globalRes.json();
         cacheAPIData('globalData', globalData);
-    }
-    catch (error) {
-        globalData = retrieveCachedAPIData('globalData');
-        if (!globalData) {
-            // TODO
-        }
-    }
 
-    try {
         const countriesRes = await fetch(`${BASE_API_URL}/countries`);
         countriesData = await countriesRes.json();
         cacheAPIData('countryData', countriesData);
+
+        await hideModal('#modalLoading');
     }
     catch (error) {
+        globalData = retrieveCachedAPIData('globalData');
         countriesData = retrieveCachedAPIData('countryData');
-        if (!countriesData) {
-            // TODO
+        await hideModal('#modalLoading');
+        if (!globalData || !countriesData) {
+            await showModal('#modalError');
         }
     }
-    $('#modalLoading').modal('hide');
 
     updateInfoCards(globalData);
     addCountryMarkers(countriesData, map);
