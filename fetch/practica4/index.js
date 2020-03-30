@@ -23,8 +23,6 @@ async function initMap() {
         const countriesRes = await fetch(`${BASE_API_URL}/countries`);
         countriesData = await countriesRes.json();
         cacheAPIData('countryData', countriesData);
-
-        await hideModal('#modalLoading');
     }
     catch (error) {
         globalData = retrieveCachedAPIData('globalData');
@@ -37,6 +35,8 @@ async function initMap() {
 
     updateInfoCards(globalData);
     addCountryMarkers(countriesData, map);
+    
+    await hideModal('#modalLoading');
 }
 
 function generateCountryInfoHTML(country) {
