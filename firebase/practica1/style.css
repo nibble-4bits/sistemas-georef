@@ -1,53 +1,55 @@
 body {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
 #main-container {
-    box-shadow: 5px 5px 10px 1px #ccc;
+  box-shadow: 5px 5px 10px 1px #ccc;
 }
 
 table {
-    border-collapse: collapse;
-    width: 60%;
-    box-shadow: 5px 5px 10px 1px #ccc;
+  border-collapse: collapse;
+  width: 60%;
+  box-shadow: 5px 5px 10px 1px #ccc;
 }
 
 thead th {
-    font-weight: bold;
-    font-variant: small-caps;
+  font-weight: bold;
+  font-variant: small-caps;
 }
 
-table, tr {
-    border: 1px solid #ddd;
+table,
+tr {
+  border: 1px solid #ddd;
 }
 
-th, td {
-    padding: 0.5em 0;
-    word-break: break-word;
+th,
+td {
+  padding: 0.5em 0;
+  word-break: break-word;
 }
 
 td input.form-control {
-    width: 80%;
-    margin: 0 auto;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .warning-overlay {
-    display: none;
-    z-index: 100;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: #d2d2d2a6;
+  display: none;
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #d2d2d2a6;
 }
 
 .warning-overlay .wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
 }
 
 .warning-overlay .wrapper h1 {
-    color: red;
+  color: red;
 }
