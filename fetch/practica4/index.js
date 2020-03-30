@@ -1,45 +1,46 @@
-"use strict";
+'use strict';
 
-const BASE_API_URL = "https://corona.lmao.ninja";
+const BASE_API_URL = 'https://corona.lmao.ninja';
 
 async function initMap() {
-  const props = {
-    center: {
-      lat: 15,
-      lng: 0
-    },
-    zoom: 2
-  };
-  const map = new google.maps.Map(document.getElementById("map"), props);
-  let globalData = null;
-  let countriesData = null;
+    const props = {
+        center: {
+            lat: 15,
+            lng: 0
+        },
+        zoom: 2
+    };
+    const map = new google.maps.Map(document.getElementById('map'), props);
+    let globalData = null;
+    let countriesData = null;
 
-  await showModal("#modalLoading");
-  try {
-    const globalRes = await fetch(`${BASE_API_URL}/all`);
-    globalData = await globalRes.json();
-    cacheAPIData("globalData", globalData);
+    await showModal('#modalLoading');
+    try {
+        const globalRes = await fetch(`${BASE_API_URL}/all`);
+        globalData = await globalRes.json();
+        cacheAPIData('globalData', globalData);
 
-    const countriesRes = await fetch(`${BASE_API_URL}/countries`);
-    countriesData = await countriesRes.json();
-    cacheAPIData("countryData", countriesData);
+        const countriesRes = await fetch(`${BASE_API_URL}/countries`);
+        countriesData = await countriesRes.json();
+        cacheAPIData('countryData', countriesData);
 
-    await hideModal("#modalLoading");
-  } catch (error) {
-    globalData = retrieveCachedAPIData("globalData");
-    countriesData = retrieveCachedAPIData("countryData");
-    await hideModal("#modalLoading");
-    if (!globalData || !countriesData) {
-      await showModal("#modalError");
+        await hideModal('#modalLoading');
     }
-  }
+    catch (error) {
+        globalData = retrieveCachedAPIData('globalData');
+        countriesData = retrieveCachedAPIData('countryData');
+        await hideModal('#modalLoading');
+        if (!globalData || !countriesData) {
+            await showModal('#modalError');
+        }
+    }
 
-  updateInfoCards(globalData);
-  addCountryMarkers(countriesData, map);
+    updateInfoCards(globalData);
+    addCountryMarkers(countriesData, map);
 }
 
 function generateCountryInfoHTML(country) {
-  return `
+    return `
         <div style="width: 12em;">
             <div style="display:flex; flex-direction: column; align-items: center; padding-bottom: 1em;">
                 <img src="${country.countryInfo.flag}" alt="Bandera de ${country.country}" style="width: 60%;">
@@ -58,8 +59,9 @@ function generateCountryInfoHTML(country) {
         </div>
     `;
 }
+
 function generateFullCountryInfoHTML(country) {
-  return `
+    return `
         <div style="width: 12em;" class="googleMapRightControl">
             <div style="display:flex; flex-direction: column; align-items: center; padding-bottom: 1em;">
                 <img src="${country.countryInfo.flag}" alt="Bandera de ${country.country}" style="width: 60%;">
@@ -94,108 +96,99 @@ function generateFullCountryInfoHTML(country) {
         </div>
     `;
 }
-function MakeControl(controlDiv, country) {
-  // Set up the control border.
-  var controlUI = document.createElement("div");
-  controlUI.title = country.country;
-  controlUI.className = "controlUI";
-  controlDiv.appendChild(controlUI);
 
-  // Set up the inner control.
-  var controlText = document.createElement("div");
-  controlText.innerHTML = generateFullCountryInfoHTML(country);
-  controlText.className = "controlText";
-  controlUI.appendChild(controlText);
+function makeControl(controlDiv, country) {
+    // Set up the control border.
+    var controlUI = document.createElement('div');
+    controlUI.title = country.country;
+    controlUI.className = 'controlUI';
+    controlDiv.appendChild(controlUI);
+
+    // Set up the inner control.
+    var controlText = document.createElement('div');
+    controlText.innerHTML = generateFullCountryInfoHTML(country);
+    controlText.className = 'controlText';
+    controlUI.appendChild(controlText);
 }
 
 function cacheAPIData(key, jsonData) {
-  localStorage.setItem(key, JSON.stringify(jsonData));
+    localStorage.setItem(key, JSON.stringify(jsonData));
 }
 
 function retrieveCachedAPIData(key) {
-  return JSON.parse(localStorage.getItem(key));
+    return JSON.parse(localStorage.getItem(key));
 }
 
 function updateInfoCards(globalData) {
-  const divLastUpdated = document.getElementById("lastUpdated");
-  const divGlobalConfirmedCases = document.getElementById(
-    "globalConfirmedCases"
-  );
-  const divGlobalRecovered = document.getElementById("globalRecovered");
-  const divGlobalDeaths = document.getElementById("globalDeaths");
+    const divLastUpdated = document.getElementById('lastUpdated');
+    const divGlobalConfirmedCases = document.getElementById('globalConfirmedCases');
+    const divGlobalRecovered = document.getElementById('globalRecovered');
+    const divGlobalDeaths = document.getElementById('globalDeaths');
 
-  divLastUpdated.textContent = new Date(
-    globalData.updated
-  ).toLocaleString("es-us", { hour12: true });
-  divGlobalConfirmedCases.textContent = globalData.cases.toLocaleString();
-  divGlobalRecovered.textContent = globalData.recovered.toLocaleString();
-  divGlobalDeaths.textContent = globalData.deaths.toLocaleString();
+    divLastUpdated.textContent = new Date(globalData.updated).toLocaleString('es-us', { hour12: true });
+    divGlobalConfirmedCases.textContent = globalData.cases.toLocaleString();
+    divGlobalRecovered.textContent = globalData.recovered.toLocaleString();
+    divGlobalDeaths.textContent = globalData.deaths.toLocaleString();
 }
 
 function addCountryMarkers(countriesData, map) {
-  let arrInfoWindows = [];
-  const icon = {
-    url: "https://image.flaticon.com/icons/png/128/2659/2659980.png",
-    scaledSize: new google.maps.Size(24, 24),
-    origin: new google.maps.Point(0, 0)
-  };
+    let arrInfoWindows = [];
+    const icon = {
+        url: 'https://image.flaticon.com/icons/png/128/2659/2659980.png',
+        scaledSize: new google.maps.Size(24, 24),
+        origin: new google.maps.Point(0, 0)
+    };
 
-  for (const country of countriesData) {
-    const info = generateCountryInfoHTML(country);
-    const infoWindow = new google.maps.InfoWindow({
-      content: info
-    });
+    for (const country of countriesData) {
+        const info = generateCountryInfoHTML(country);
+        const infoWindow = new google.maps.InfoWindow({
+            content: info
+        });
 
-    const marker = new google.maps.Marker({
-      map: map,
-      icon: icon,
-      position: new google.maps.LatLng(
-        country.countryInfo.lat,
-        country.countryInfo.long
-      ),
-      title: `${country.country}`
-    });
-    marker.addListener("click", () => {
-      for (const infoWin of arrInfoWindows) {
-        infoWin.close();
-      }
-      infoWindow.open(map, marker);
-      var divName = document.createElement("div");
-      new MakeControl(divName, country);
+        const marker = new google.maps.Marker({
+            map: map,
+            icon: icon,
+            position: new google.maps.LatLng(country.countryInfo.lat, country.countryInfo.long),
+            title: `${country.country}`
+        });
 
-      let fullInfoWindow = setInterval(function() {
-        if (!infoWindow.getMap()) {
-          clearInterval(fullInfoWindow);
-          map.controls[google.maps.ControlPosition.RIGHT_CENTER].pop();
-        } else {
-          if (
-            map.controls[google.maps.ControlPosition.RIGHT_CENTER].length == 0
-          ) {
-            map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(
-              divName
-            );
-          }
-        }
-      }, 100);
-    });
+        marker.addListener('click', () => {
+            for (const infoWin of arrInfoWindows) {
+                infoWin.close();
+            }
+            infoWindow.open(map, marker);
+            var divName = document.createElement('div');
+            new makeControl(divName, country);
 
-    arrInfoWindows.push(infoWindow);
-  }
+            let fullInfoWindow = setInterval(function () {
+                if (!infoWindow.getMap()) {
+                    clearInterval(fullInfoWindow);
+                    map.controls[google.maps.ControlPosition.RIGHT_CENTER].pop();
+                }
+                else if (map.controls[google.maps.ControlPosition.RIGHT_CENTER].length === 0) {
+                    map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(divName);
+                }
+            }, 100);
+        });
+
+        arrInfoWindows.push(infoWindow);
+    }
 }
+
 async function showModal(modalId) {
-  $(modalId).modal("show");
-  return new Promise((resolve, reject) => {
-    $(modalId).on("shown.bs.modal", evt => {
-      resolve();
+    $(modalId).modal('show');
+    return new Promise((resolve, reject) => {
+        $(modalId).on('shown.bs.modal', evt => {
+            resolve();
+        });
     });
-  });
 }
 
 async function hideModal(modalId) {
-  $(modalId).modal("hide");
-  return new Promise((resolve, reject) => {
-    $(modalId).on("hidden.bs.modal", evt => {
-      resolve();
+    $(modalId).modal('hide');
+    return new Promise((resolve, reject) => {
+        $(modalId).on('hidden.bs.modal', evt => {
+            resolve();
+        });
     });
-  });
 }
