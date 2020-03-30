@@ -14,43 +14,28 @@ async function initMap() {
   let globalData = null;
   let countriesData = null;
 
-  $("#modalLoading").modal("show");
+  await showModal("#modalLoading");
   try {
     const globalRes = await fetch(`${BASE_API_URL}/all`);
     globalData = await globalRes.json();
     cacheAPIData("globalData", globalData);
-  } catch (error) {
-    globalData = retrieveCachedAPIData("globalData");
-    if (!globalData) {
-      // TODO
-    }
-  }
 
-  try {
-    const globalRes = await fetch(`${BASE_API_URL}/all`);
-    globalData = await globalRes.json();
-    cacheAPIData("globalData", globalData);
-  } catch (error) {
-    globalData = retrieveCachedAPIData("globalData");
-    if (!globalData) {
-      // TODO
-    }
-  }
-
-  try {
     const countriesRes = await fetch(`${BASE_API_URL}/countries`);
     countriesData = await countriesRes.json();
     cacheAPIData("countryData", countriesData);
-  } catch (error) {
-    countriesData = retrieveCachedAPIData("countryData");
-    if (!countriesData) {
-      // TODO
-    }
-    $("#modalLoading").modal("hide");
 
-    updateInfoCards(globalData);
-    addCountryMarkers(countriesData, map);
+    await hideModal("#modalLoading");
+  } catch (error) {
+    globalData = retrieveCachedAPIData("globalData");
+    countriesData = retrieveCachedAPIData("countryData");
+    await hideModal("#modalLoading");
+    if (!globalData || !countriesData) {
+      await showModal("#modalError");
+    }
   }
+
+  updateInfoCards(globalData);
+  addCountryMarkers(countriesData, map);
 }
 
 function generateCountryInfoHTML(country) {
@@ -90,7 +75,7 @@ function generateFullCountryInfoHTML(country) {
                 <div>
                     <b>Muertes: </b>${country.deaths}<br>
                 </div>
-                <div>
+                <div class="col-12">
                     <b>Muertes hoy: </b>${country.todayDeaths}<br>
                 </div>
                 <div>
@@ -170,12 +155,26 @@ function addCountryMarkers(countriesData, map) {
       ),
       title: `${country.country}`
     });
-
     marker.addListener("click", () => {
+      let fullInfoWindow = setInterval(function() {
+        if (!infoWindow.getMap()) {
+          clearInterval(fullInfoWindow);
+          if (
+            map.controls[google.maps.ControlPosition.RIGHT_CENTER].length != 0
+          ) {
+            console.log(map.controls[google.maps.ControlPosition.RIGHT_CENTER]);
+            map.controls[google.maps.ControlPosition.RIGHT_CENTER].i[0] =
+              map.controls[google.maps.ControlPosition.RIGHT_CENTER].i[1];
+
+            map.controls[google.maps.ControlPosition.RIGHT_CENTER].pop();
+            console.log(
+              map.controls[google.maps.ControlPosition.RIGHT_CENTER].i[1]
+            );
+          }
+        }
+      }, 300);
       for (const infoWin of arrInfoWindows) {
         infoWin.close();
-        if (map.controls[google.maps.ControlPosition.RIGHT_CENTER].length != 0)
-          map.controls[google.maps.ControlPosition.RIGHT_CENTER].pop();
       }
       infoWindow.open(map, marker);
       var divName = document.createElement("div");
@@ -185,4 +184,22 @@ function addCountryMarkers(countriesData, map) {
 
     arrInfoWindows.push(infoWindow);
   }
+}
+
+async function showModal(modalId) {
+  $(modalId).modal("show");
+  return new Promise((resolve, reject) => {
+    $(modalId).on("shown.bs.modal", evt => {
+      resolve();
+    });
+  });
+}
+
+async function hideModal(modalId) {
+  $(modalId).modal("hide");
+  return new Promise((resolve, reject) => {
+    $(modalId).on("hidden.bs.modal", evt => {
+      resolve();
+    });
+  });
 }

@@ -6,25 +6,30 @@
     <meta charset="utf-8">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
-    <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 
-    <!-- Custom stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <!-- Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Custom stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/errorModal.css">
 
     <script defer src="index.js"></script>
 
     <script defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADjOfdGIg-7JiqjoTstMN9el4g-nLhxxA&callback=initMap"></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDToYkjq7Lp8jc5sRgK2i_7U3t1yZwvlQg&callback=initMap"></script>
 
     <title>Fetch4</title>
 </head>
@@ -70,16 +75,19 @@
     <footer class="container-fluid mt-4">
         <div class="row">
             <div class="col d-flex justify-content-center align-items-center font-italic p-3">
-                <p style="margin: 0;">Fuente: <a href="https://www.worldometers.info/coronavirus/"
+                <<<<<<< HEAD <p style="margin: 0;">Fuente: <a href="https://www.worldometers.info/coronavirus/"
                         target="_blank">worldometers.info</a></p>
+                    =======
+                    <p>Fuente: <a href="https://www.worldometers.info/coronavirus/"
+                            target="_blank">worldometers.info</a></p>
+                    >>>>>>> 83c41bf61af3c87c2409bbc9b15c202e2951555f
             </div>
         </div>
     </footer>
 
     <!-- Modal Loading -->
-    <div id="modalLoading" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-dialog-center">
-            <!-- Modal content-->
+    <div id="modalLoading" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body text-center">
                     <div class="lds-ellipsis">
@@ -89,6 +97,27 @@
                         <div></div>
                     </div>
                     <h5 class="modal-title">Obteniendo datos...</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal HTML -->
+    <div id="modalError" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE5CD;</i>
+                    </div>
+                    <h4 class="modal-title">¡Lo sentimos!</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">Ha ocurrido un error al intentar obtener los datos más recientes. Por favor
+                        inténtelo de nuevo más tarde.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger btn-block" data-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>
