@@ -156,36 +156,32 @@ function addCountryMarkers(countriesData, map) {
       title: `${country.country}`
     });
     marker.addListener("click", () => {
-      let fullInfoWindow = setInterval(function() {
-        if (!infoWindow.getMap()) {
-          clearInterval(fullInfoWindow);
-          if (
-            map.controls[google.maps.ControlPosition.RIGHT_CENTER].length != 0
-          ) {
-            console.log(map.controls[google.maps.ControlPosition.RIGHT_CENTER]);
-            map.controls[google.maps.ControlPosition.RIGHT_CENTER].i[0] =
-              map.controls[google.maps.ControlPosition.RIGHT_CENTER].i[1];
-
-            map.controls[google.maps.ControlPosition.RIGHT_CENTER].pop();
-            console.log(
-              map.controls[google.maps.ControlPosition.RIGHT_CENTER].i[1]
-            );
-          }
-        }
-      }, 300);
       for (const infoWin of arrInfoWindows) {
         infoWin.close();
       }
       infoWindow.open(map, marker);
       var divName = document.createElement("div");
       new MakeControl(divName, country);
-      map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(divName);
+
+      let fullInfoWindow = setInterval(function() {
+        if (!infoWindow.getMap()) {
+          clearInterval(fullInfoWindow);
+          map.controls[google.maps.ControlPosition.RIGHT_CENTER].pop();
+        } else {
+          if (
+            map.controls[google.maps.ControlPosition.RIGHT_CENTER].length == 0
+          ) {
+            map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(
+              divName
+            );
+          }
+        }
+      }, 100);
     });
 
     arrInfoWindows.push(infoWindow);
   }
 }
-
 async function showModal(modalId) {
   $(modalId).modal("show");
   return new Promise((resolve, reject) => {
