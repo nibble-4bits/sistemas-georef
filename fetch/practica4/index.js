@@ -176,7 +176,7 @@ function addCountryMarkers(countriesData, map) {
 }
 
 async function showModal(modalId) {
-    $(modalId).modal('show');
+    $(modalId).modal({ backdrop: 'static', keyboard: true, show: true });
     return new Promise((resolve, reject) => {
         $(modalId).on('shown.bs.modal', evt => {
             resolve();
