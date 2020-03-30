@@ -41,7 +41,7 @@ async function initMap() {
 
 function generateCountryInfoHTML(country) {
     return `
-        <div style="width: 12em;">
+        <div class="googleMapMarker">
             <div style="display:flex; flex-direction: column; align-items: center; padding-bottom: 1em;">
                 <img src="${country.countryInfo.flag}" alt="Bandera de ${country.country}" style="width: 60%;">
             </div>
@@ -62,36 +62,46 @@ function generateCountryInfoHTML(country) {
 
 function generateFullCountryInfoHTML(country) {
     return `
-        <div style="width: 12em;" class="googleMapRightControl">
+        <div class="googleMapRightControl">
             <div style="display:flex; flex-direction: column; align-items: center; padding-bottom: 1em;">
                 <img src="${country.countryInfo.flag}" alt="Bandera de ${country.country}" style="width: 60%;">
-                <h3 style="margin: 3px 0 0 0;">${country.country}</h3>
+                <h5 style="margin: 3px 0 0 0;">${country.country}</h5>
             </div>
-            <div style="display:flex; flex-direction: column; align-items: center;">
-                <div>
-                    <b>Casos: </b>${country.cases}<br>
-                </div>
-                <div>
-                    <b>Nuevos hoy: </b>${country.todayCases}<br>
-                </div>
-                <div>
-                    <b>Muertes: </b>${country.deaths}<br>
-                </div>
-                <div class="col-12">
-                    <b>Muertes hoy: </b>${country.todayDeaths}<br>
-                </div>
-                <div>
-                    <b>Recuperados: </b>${country.recovered}<br>
-                </div>
-                <div>
-                    <b>Activos: </b>${country.active}<br>
-                </div>
-                <div>
-                    <b>Críticos: </b>${country.critical}<br>
-                </div>
-                <div>
-                    <b>Casos por millón: </b>${country.casesPerOneMillion}<br>
-                </div>
+            <div style="display:flex; justify-content: center;">
+                <table>
+                    <tr>
+                        <td><b>Casos</b></td>
+                        <td>${country.cases}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Nuevos hoy</b></td>
+                        <td>${country.todayCases}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Muertes</b></td>
+                        <td>${country.deaths}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Muertes hoy</b></td>
+                        <td>${country.todayDeaths}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Recuperados</b></td>
+                        <td>${country.recovered}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Activos</b></td>
+                        <td>${country.active}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Críticos</b></td>
+                        <td>${country.critical}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Casos/millón</b></td>
+                        <td>${country.casesPerOneMillion}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     `;
@@ -160,7 +170,7 @@ function addCountryMarkers(countriesData, map) {
             var divName = document.createElement('div');
             new makeControl(divName, country);
 
-            let fullInfoWindow = setInterval(function () {
+            let fullInfoWindow = setInterval(() => { 
                 if (!infoWindow.getMap()) {
                     clearInterval(fullInfoWindow);
                     map.controls[google.maps.ControlPosition.RIGHT_CENTER].pop();

@@ -18,28 +18,35 @@ body {
     font-weight: 500;
 }
 
+.googleMapMarker {
+    min-width: 8em;
+    max-width: 12em;
+}
+
 .googleMapRightControl {
-    background: white;
+    background: #efefef;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    padding: 20px;
-    width: 200px !important;
-    font-size: 22px;
-    text-align: left;
-    opacity: 0.85;
+    padding: 1rem;
+    width: 225px;
+    font-size: 1.125rem;
+    opacity: 0.9;
+}
+
+.googleMapRightControl td:nth-child(1) {
+    padding: 0.125rem 1rem;
+    text-align: right;
 }
 
 @media only screen and (max-width: 850px) {
     .googleMapRightControl {
-        background: white;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
         padding: 20px;
-        width: 100px !important;
+        width: 120px !important;
         font-size: 10px;
-        opacity: 0.85;
     }
-    h3 {
-        font-size: 5px;
+
+    .googleMapRightControl td:nth-child(1) {
+        padding: 0.125rem 0.5rem;
+        text-align: right;
     }
 }
