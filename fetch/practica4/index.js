@@ -35,7 +35,7 @@ async function initMap() {
 
     updateInfoCards(globalData);
     addCountryMarkers(countriesData, map);
-    
+
     await hideModal('#modalLoading');
 }
 
@@ -132,11 +132,13 @@ function retrieveCachedAPIData(key) {
 function updateInfoCards(globalData) {
     const divLastUpdated = document.getElementById('lastUpdated');
     const divGlobalConfirmedCases = document.getElementById('globalConfirmedCases');
+    const divGlobalActiveCases = document.getElementById('globalActiveCases');
     const divGlobalRecovered = document.getElementById('globalRecovered');
     const divGlobalDeaths = document.getElementById('globalDeaths');
 
     divLastUpdated.textContent = new Date(globalData.updated).toLocaleString('es-us', { hour12: true });
     divGlobalConfirmedCases.textContent = globalData.cases.toLocaleString();
+    divGlobalActiveCases.textContent = globalData.active.toLocaleString();
     divGlobalRecovered.textContent = globalData.recovered.toLocaleString();
     divGlobalDeaths.textContent = globalData.deaths.toLocaleString();
 }

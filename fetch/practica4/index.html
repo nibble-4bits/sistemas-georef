@@ -46,26 +46,39 @@
         <div class="card-deck">
             <div class="card text-center">
                 <div class="card-header font-weight-bold text-uppercase">Última actualización</div>
-                <div class="card-body">
+                <div class="card-body d-flex justify-content-center align-items-center">
                     <span id="lastUpdated"></span>
                 </div>
             </div>
             <div class="card text-center">
                 <div class="card-header font-weight-bold text-uppercase">Casos globales confirmados</div>
-                <div class="card-body text-secondary">
+                <div class="card-body text-secondary d-flex justify-content-center align-items-center">
                     <span id="globalConfirmedCases"></span>
                 </div>
             </div>
             <div class="card text-center">
-                <div class="card-header font-weight-bold text-uppercase">Recuperados globales</div>
-                <div class="card-body text-success">
-                    <span id="globalRecovered"></span>
+                <div class="card-header font-weight-bold text-uppercase">Casos activos</div>
+                <div class="card-body text-warning d-flex justify-content-center align-items-center">
+                    <span id="globalActiveCases"></span>
                 </div>
             </div>
             <div class="card text-center">
-                <div class="card-header font-weight-bold text-uppercase">Muertes globales</div>
-                <div class="card-body text-danger">
-                    <span id="globalDeaths"></span>
+                <div class="card-header font-weight-bold text-uppercase">Casos cerrados</div>
+                <div id="recovered-deaths" class="card-body d-flex justify-content-center">
+                    <div class="row">
+                        <div class="col">
+                            <h6>Recuperados</h6>
+                            <div>
+                                <span id="globalRecovered" class="text-success"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h6>Muertes</h6>
+                            <div>
+                                <span id="globalDeaths" class="text-danger"></span>
+                            </div>
+                        </div>
+                      </div>
                 </div>
             </div>
         </div>
@@ -73,7 +86,7 @@
 
     <footer class="container-fluid mt-4">
         <div class="row">
-            <div class="col d-flex justify-content-center align-items-center font-italic p-3">
+            <div class="col d-flex justify-content-center align-items-center font-italic p-2">
                 <p style="margin: 0;">Fuente: <a href="https://www.worldometers.info/coronavirus/" target="_blank">worldometers.info</a></p>
             </div>
         </div>

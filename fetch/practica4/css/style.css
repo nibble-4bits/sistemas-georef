@@ -14,8 +14,12 @@ body {
 }
 
 #global-stats span {
-    font-size: 3vh;
+    font-size: 2.75vh;
     font-weight: 500;
+}
+
+#recovered-deaths h6 {
+    margin: 0;
 }
 
 .googleMapMarker {
