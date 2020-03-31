@@ -53,8 +53,7 @@ body {
 }
 
 .googleMapMarker {
-    min-width: 8em;
-    max-width: 12em;
+    max-width: 9em;
 }
 
 .googleMapRightControl {
