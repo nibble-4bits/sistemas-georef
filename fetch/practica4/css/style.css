@@ -27,7 +27,7 @@ body {
     width: 90%;
 }
 
-#countryCasesTable th, td {
+#countryCasesTable th, #countryCasesTable td {
     border-bottom: 1px solid #ccc;
 }
 
