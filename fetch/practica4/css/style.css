@@ -5,6 +5,36 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+#first-row .card-body {
+    max-height: 35vh;
+    overflow-y: auto;
+}
+
+@media only screen and (min-width: 992px) {
+    #first-row .row {
+        overflow: hidden;
+    }
+    #first-row .card {
+        height: 100%;
+    }
+    #first-row .card-body {
+        min-height: 90%;
+        overflow-y: auto;
+    }
+}
+
+#countryCasesTable {
+    width: 90%;
+}
+
+#countryCasesTable th, td {
+    border-bottom: 1px solid #ccc;
+}
+
+#countryCasesTable tr:hover :not(th) {
+    background-color: rgb(220, 220, 220);
+}
+
 #map {
     height: 75vh;
 }
@@ -48,7 +78,6 @@ body {
         width: 120px !important;
         font-size: 10px;
     }
-
     .googleMapRightControl td:nth-child(1) {
         padding: 0.125rem 0.5rem;
         text-align: right;

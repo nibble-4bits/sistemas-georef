@@ -20,7 +20,7 @@ async function initMap() {
         globalData = await globalRes.json();
         cacheAPIData('globalData', globalData);
 
-        const countriesRes = await fetch(`${BASE_API_URL}/countries`);
+        const countriesRes = await fetch(`${BASE_API_URL}/countries?sort=cases`);
         countriesData = await countriesRes.json();
         cacheAPIData('countryData', countriesData);
     }
@@ -33,7 +33,7 @@ async function initMap() {
         }
     }
 
-    updateInfoCards(globalData);
+    updateInfoCards(globalData, countriesData);
     addCountryMarkers(countriesData, map);
 
     await hideModal('#modalLoading');
@@ -129,12 +129,30 @@ function retrieveCachedAPIData(key) {
     return JSON.parse(localStorage.getItem(key));
 }
 
-function updateInfoCards(globalData) {
+function updateInfoCards(globalData, countriesData) {
+    const tblCountryCases = document.getElementById('countryCasesTable');
     const divLastUpdated = document.getElementById('lastUpdated');
     const divGlobalConfirmedCases = document.getElementById('globalConfirmedCases');
     const divGlobalActiveCases = document.getElementById('globalActiveCases');
     const divGlobalRecovered = document.getElementById('globalRecovered');
     const divGlobalDeaths = document.getElementById('globalDeaths');
+
+    countriesData.forEach((country, i) => {
+        const tdPosicion = document.createElement('td');
+        const tdPais = document.createElement('td');
+        const tdCasos = document.createElement('td');
+
+        tdPosicion.textContent = i + 1;
+        tdPais.textContent = country.country;
+        tdCasos.textContent = country.cases.toLocaleString();
+
+        const tr = document.createElement('tr');
+        tr.appendChild(tdPosicion);
+        tr.appendChild(tdPais);
+        tr.appendChild(tdCasos);
+
+        tblCountryCases.appendChild(tr);
+    });
 
     divLastUpdated.textContent = new Date(globalData.updated).toLocaleString('es-us', { hour12: true });
     divGlobalConfirmedCases.textContent = globalData.cases.toLocaleString();
@@ -172,7 +190,7 @@ function addCountryMarkers(countriesData, map) {
             var divName = document.createElement('div');
             new makeControl(divName, country);
 
-            let fullInfoWindow = setInterval(() => { 
+            let fullInfoWindow = setInterval(() => {
                 if (!infoWindow.getMap()) {
                     clearInterval(fullInfoWindow);
                     map.controls[google.maps.ControlPosition.RIGHT_CENTER].pop();
