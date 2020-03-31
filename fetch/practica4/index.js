@@ -49,13 +49,13 @@ function generateCountryInfoHTML(country) {
             </div>
             <div style="display:flex; flex-direction: column; align-items: center;">
                 <div>
-                    <b>Casos: </b>${country.cases}<br>
+                    <b>Casos: </b>${country.cases.toLocaleString()}<br>
                 </div>
                 <div>
-                    <b>Muertes: </b>${country.deaths}<br>
+                    <b>Muertes: </b>${country.deaths.toLocaleString()}<br>
                 </div>
                 <div>
-                    <b>Recuperados: </b>${country.recovered}<br>
+                    <b>Recuperados: </b>${country.recovered.toLocaleString()}<br>
                 </div>
             </div>
         </div>
@@ -73,35 +73,35 @@ function generateFullCountryInfoHTML(country) {
                 <table>
                     <tr>
                         <td><b>Casos</b></td>
-                        <td>${country.cases}</td>
+                        <td>${country.cases.toLocaleString()}</td>
                     </tr>
                     <tr>
                         <td><b>Nuevos hoy</b></td>
-                        <td>${country.todayCases}</td>
+                        <td>${country.todayCases.toLocaleString()}</td>
                     </tr>
                     <tr>
                         <td><b>Muertes</b></td>
-                        <td>${country.deaths}</td>
+                        <td>${country.deaths.toLocaleString()}</td>
                     </tr>
                     <tr>
                         <td><b>Muertes hoy</b></td>
-                        <td>${country.todayDeaths}</td>
+                        <td>${country.todayDeaths.toLocaleString()}</td>
                     </tr>
                     <tr>
                         <td><b>Recuperados</b></td>
-                        <td>${country.recovered}</td>
+                        <td>${country.recovered.toLocaleString()}</td>
                     </tr>
                     <tr>
                         <td><b>Activos</b></td>
-                        <td>${country.active}</td>
+                        <td>${country.active.toLocaleString()}</td>
                     </tr>
                     <tr>
                         <td><b>Críticos</b></td>
-                        <td>${country.critical}</td>
+                        <td>${country.critical.toLocaleString()}</td>
                     </tr>
                     <tr>
                         <td><b>Casos/millón</b></td>
-                        <td>${country.casesPerOneMillion}</td>
+                        <td>${country.casesPerOneMillion.toLocaleString()}</td>
                     </tr>
                 </table>
             </div>
