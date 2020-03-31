@@ -1,6 +1,8 @@
 'use strict';
 
 const BASE_API_URL = 'https://corona.lmao.ninja';
+let objInfoWindows = {};
+let markers = {};
 
 async function initMap() {
     const props = {
@@ -151,6 +153,12 @@ function updateInfoCards(globalData, countriesData) {
         tr.appendChild(tdPais);
         tr.appendChild(tdCasos);
 
+        tr.addEventListener('click', evt => {
+            const country = evt.currentTarget.children[1].textContent;
+            closeAllInfoWindows();
+            google.maps.event.trigger(markers[country], 'click');
+        });
+
         tblCountryCases.appendChild(tr);
     });
 
@@ -162,7 +170,6 @@ function updateInfoCards(globalData, countriesData) {
 }
 
 function addCountryMarkers(countriesData, map) {
-    let arrInfoWindows = [];
     const icon = {
         url: 'https://image.flaticon.com/icons/png/128/2659/2659980.png',
         scaledSize: new google.maps.Size(24, 24),
@@ -182,10 +189,9 @@ function addCountryMarkers(countriesData, map) {
             title: `${country.country}`
         });
 
+        markers[country.country] = marker;
         marker.addListener('click', () => {
-            for (const infoWin of arrInfoWindows) {
-                infoWin.close();
-            }
+            closeAllInfoWindows();
             infoWindow.open(map, marker);
             var divName = document.createElement('div');
             new makeControl(divName, country);
@@ -201,7 +207,13 @@ function addCountryMarkers(countriesData, map) {
             }, 100);
         });
 
-        arrInfoWindows.push(infoWindow);
+        objInfoWindows[country.country] = infoWindow;
+    }
+}
+
+function closeAllInfoWindows() {
+    for (const infoWinKey in objInfoWindows) {
+        objInfoWindows[infoWinKey].close();
     }
 }
 
