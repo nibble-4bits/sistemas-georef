@@ -49,13 +49,13 @@ function generateCountryInfoHTML(country) {
             </div>
             <div style="display:flex; flex-direction: column; align-items: center;">
                 <div>
-                    <b>Casos: </b>${country.cases.toLocaleString()}<br>
+                    <b>Casos: </b>${country.cases.toLocaleString('en')}<br>
                 </div>
                 <div>
-                    <b>Muertes: </b>${country.deaths.toLocaleString()}<br>
+                    <b>Muertes: </b>${country.deaths.toLocaleString('en')}<br>
                 </div>
                 <div>
-                    <b>Recuperados: </b>${country.recovered.toLocaleString()}<br>
+                    <b>Recuperados: </b>${country.recovered.toLocaleString('en')}<br>
                 </div>
             </div>
         </div>
@@ -73,35 +73,35 @@ function generateFullCountryInfoHTML(country) {
                 <table>
                     <tr>
                         <td><b>Casos</b></td>
-                        <td>${country.cases.toLocaleString()}</td>
+                        <td>${country.cases.toLocaleString('en')}</td>
                     </tr>
                     <tr>
                         <td><b>Nuevos hoy</b></td>
-                        <td>${country.todayCases.toLocaleString()}</td>
+                        <td>${country.todayCases.toLocaleString('en')}</td>
                     </tr>
                     <tr>
                         <td><b>Muertes</b></td>
-                        <td>${country.deaths.toLocaleString()}</td>
+                        <td>${country.deaths.toLocaleString('en')}</td>
                     </tr>
                     <tr>
                         <td><b>Muertes hoy</b></td>
-                        <td>${country.todayDeaths.toLocaleString()}</td>
+                        <td>${country.todayDeaths.toLocaleString('en')}</td>
                     </tr>
                     <tr>
                         <td><b>Recuperados</b></td>
-                        <td>${country.recovered.toLocaleString()}</td>
+                        <td>${country.recovered.toLocaleString('en')}</td>
                     </tr>
                     <tr>
                         <td><b>Activos</b></td>
-                        <td>${country.active.toLocaleString()}</td>
+                        <td>${country.active.toLocaleString('en')}</td>
                     </tr>
                     <tr>
                         <td><b>Críticos</b></td>
-                        <td>${country.critical.toLocaleString()}</td>
+                        <td>${country.critical.toLocaleString('en')}</td>
                     </tr>
                     <tr>
                         <td><b>Casos/millón</b></td>
-                        <td>${country.casesPerOneMillion.toLocaleString()}</td>
+                        <td>${country.casesPerOneMillion.toLocaleString('en')}</td>
                     </tr>
                 </table>
             </div>
@@ -146,7 +146,7 @@ function updateInfoCards(globalData, countriesData) {
 
         tdPosicion.textContent = i + 1;
         tdPais.textContent = country.country;
-        tdCasos.textContent = country.cases.toLocaleString();
+        tdCasos.textContent = country.cases.toLocaleString('en');
 
         const tr = document.createElement('tr');
         tr.appendChild(tdPosicion);
@@ -163,10 +163,10 @@ function updateInfoCards(globalData, countriesData) {
     });
 
     divLastUpdated.textContent = new Date(globalData.updated).toLocaleString('es-us', { hour12: true });
-    divGlobalConfirmedCases.textContent = globalData.cases.toLocaleString();
-    divGlobalActiveCases.textContent = globalData.active.toLocaleString();
-    divGlobalRecovered.textContent = globalData.recovered.toLocaleString();
-    divGlobalDeaths.textContent = globalData.deaths.toLocaleString();
+    divGlobalConfirmedCases.textContent = globalData.cases.toLocaleString('en');
+    divGlobalActiveCases.textContent = globalData.active.toLocaleString('en');
+    divGlobalRecovered.textContent = globalData.recovered.toLocaleString('en');
+    divGlobalDeaths.textContent = globalData.deaths.toLocaleString('en');
 }
 
 function addCountryMarkers(countriesData, map) {
