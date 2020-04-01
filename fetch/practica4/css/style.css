@@ -53,6 +53,18 @@ body {
     margin: 0;
 }
 
+@media only screen and (min-width: 768px) {
+    footer .row div {
+        max-width: 50%;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    footer .row div {
+        max-width: 25%;
+    }
+}
+
 .googleMapMarker {
     max-width: 9em;
 }
