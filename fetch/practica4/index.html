@@ -134,6 +134,136 @@
         </div>
     </div>
 
+    <!-- Modal About -->
+    <div class="modal fade" id="modalAbout" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-info-circle"></i>
+                        <h5 class="modal-title">Acerca de</h5>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-justify">
+                    <p>
+                        Este mapa fue creado por estudiantes de 6° semestre de la carrera de Ingeniería de Software y
+                        Sistemas Computacionales de la Universidad De La Salle Bajío, con la finalidad de informar a la
+                        comunidad sobre la expansión del COVID-19 a nivel mundial y por país.
+                    </p>
+
+                    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample">Info. para
+                        desarrolladores</a>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <span>
+                                        El código fuente del sitio puede ser consultado <a
+                                            href="http://https://github.com/nibble-4bits/sistemas-georef/tree/master/fetch/practica4">aquí</a>.
+                                    </span>
+                                </li>
+                                <li class="list-group-item">
+                                    <span>
+                                        La obtención de los datos se hace a través de esta <a
+                                            href="https://corona.lmao.ninja/" target="_blank">API</a>.
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Source -->
+    <div class="modal fade" id="modalSource" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-search"></i>
+                        <h5 class="modal-title">Fuente</h5>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    Todos los datos son obtenidos de <a href="https://www.worldometers.info/coronavirus/"
+                        target="_blank">worldometers.info/coronavirus</a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Credits -->
+    <div class="modal fade" id="modalCredits" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-hands-helping"></i>
+                        <h5 class="modal-title">Créditos</h5>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <p><b>Crédito para todos los estudiantes de 6° de Ingeniería de Software y Sistemas
+                            Computacionales:</b></p>
+                    <ul class="list-group">
+                        <li class="list-group-item">Luis De Anda</li>
+                        <li class="list-group-item">Luis Zanella</li>
+                        <li class="list-group-item">Andrei Arias</li>
+                        <li class="list-group-item">Sebastián Gutiérrez</li>
+                        <li class="list-group-item">Jorge Rangel</li>
+                        <li class="list-group-item">Kevin Acosta</li>
+                        <li class="list-group-item">Ronaldo Barrientos</li>
+                        <li class="list-group-item">Eduardo Bedolla</li>
+                        <li class="list-group-item">Gerardo Cabrera</li>
+                        <li class="list-group-item">Juan de Dios Cruz</li>
+                        <li class="list-group-item">Daniel Cuanalo</li>
+                        <li class="list-group-item">Diego De la Vega</li>
+                        <li class="list-group-item">Rodrigo De León</li>
+                        <li class="list-group-item">Diego Duarte</li>
+                        <li class="list-group-item">Sofía Enríquez</li>
+                        <li class="list-group-item">Mauricio García</li>
+                        <li class="list-group-item">Josué Romo</li>
+                        <li class="list-group-item">José Pablo Gutiérrez</li>
+                        <li class="list-group-item">Marco Lezcano</li>
+                        <li class="list-group-item">Karol Quijas</li>
+                        <li class="list-group-item">Leonardo Medina</li>
+                        <li class="list-group-item">Jonathan Muñoz</li>
+                        <li class="list-group-item">Jorge Padilla</li>
+                        <li class="list-group-item">Juan Reyes</li>
+                        <li class="list-group-item">José Luis Rodríguez</li>
+                        <li class="list-group-item">Byron Rodríguez</li>
+                        <li class="list-group-item">Luis Daniel Torres</li>
+                        <li class="list-group-item">Nicolás de Jesús Ramírez</li>
+                        <li class="list-group-item">Jean Carlo Vaca</li>
+                        <li class="list-group-item">Gerardo Vallejo</li>
+                        <li class="list-group-item">Axel Visoso</li>
+                        <li class="list-group-item">José Carlos Zamora</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Error -->
     <div id="modalError" class="modal fade">
         <div class="modal-dialog modal-confirm">

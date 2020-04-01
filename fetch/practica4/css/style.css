@@ -65,6 +65,10 @@ body {
     }
 }
 
+#modalAbout .modal-title, #modalSource .modal-title, #modalCredits .modal-title {
+    margin-left: 7.5px;
+}
+
 .googleMapMarker {
     max-width: 9em;
 }
