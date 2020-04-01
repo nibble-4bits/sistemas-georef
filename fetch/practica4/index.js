@@ -15,6 +15,7 @@ async function initMap() {
     const map = new google.maps.Map(document.getElementById('map'), props);
     let globalData = null;
     let countriesData = null;
+    let countryNamesES = null;
 
     await showModal('#modalLoading');
     try {
@@ -25,6 +26,9 @@ async function initMap() {
         const countriesRes = await fetch(`${BASE_API_URL}/countries?sort=cases`);
         countriesData = await countriesRes.json();
         cacheAPIData('countryData', countriesData);
+
+        const countryNamesESRes = await fetch('https://raw.githubusercontent.com/umpirsky/country-list/master/data/es_MX/country.json');
+        countryNamesES = await countryNamesESRes.json();
     }
     catch (error) {
         globalData = retrieveCachedAPIData('globalData');
@@ -35,17 +39,17 @@ async function initMap() {
         }
     }
 
-    updateInfoCards(globalData, countriesData);
-    addCountryMarkers(countriesData, map);
+    updateInfoCards(globalData, countriesData, countryNamesES);
+    addCountryMarkers(countriesData, countryNamesES, map);
 
     await hideModal('#modalLoading');
 }
 
-function generateCountryInfoHTML(country) {
+function generateCountryInfoHTML(country, countryES) {
     return `
         <div class="googleMapMarker">
             <div style="display:flex; flex-direction: column; align-items: center; padding-bottom: 1em;">
-                <img src="${country.countryInfo.flag}" alt="Bandera de ${country.country}" style="width: 60%;">
+                <img src="${country.countryInfo.flag}" alt="Bandera de ${countryES[country.countryInfo.iso2] || country.country}" style="width: 60%;">
             </div>
             <div style="display:flex; flex-direction: column; align-items: center;">
                 <div>
@@ -62,12 +66,12 @@ function generateCountryInfoHTML(country) {
     `;
 }
 
-function generateFullCountryInfoHTML(country) {
+function generateFullCountryInfoHTML(country, countryES) {
     return `
         <div class="googleMapRightControl">
             <div style="display:flex; flex-direction: column; align-items: center; padding-bottom: 1em;">
-                <img src="${country.countryInfo.flag}" alt="Bandera de ${country.country}" style="width: 60%;">
-                <h5 style="margin: 3px 0 0 0;">${country.country}</h5>
+                <img src="${country.countryInfo.flag}" alt="Bandera de ${countryES[country.countryInfo.iso2] || country.country}" style="width: 60%;">
+                <h5 style="margin: 3px 0 0 0;">${countryES[country.countryInfo.iso2] || country.country}</h5>
             </div>
             <div style="display:flex; justify-content: center;">
                 <table>
@@ -109,29 +113,21 @@ function generateFullCountryInfoHTML(country) {
     `;
 }
 
-function makeControl(controlDiv, country) {
+function makeControl(controlDiv, country, countryES) {
     // Set up the control border.
     var controlUI = document.createElement('div');
-    controlUI.title = country.country;
+    controlUI.title = countryES[country.countryInfo.iso2] || country.country;
     controlUI.className = 'controlUI';
     controlDiv.appendChild(controlUI);
 
     // Set up the inner control.
     var controlText = document.createElement('div');
-    controlText.innerHTML = generateFullCountryInfoHTML(country);
+    controlText.innerHTML = generateFullCountryInfoHTML(country, countryES);
     controlText.className = 'controlText';
     controlUI.appendChild(controlText);
 }
 
-function cacheAPIData(key, jsonData) {
-    localStorage.setItem(key, JSON.stringify(jsonData));
-}
-
-function retrieveCachedAPIData(key) {
-    return JSON.parse(localStorage.getItem(key));
-}
-
-function updateInfoCards(globalData, countriesData) {
+function updateInfoCards(globalData, countriesData, countryNamesES) {
     const tblCountryCases = document.getElementById('countryCasesTable');
     const divLastUpdated = document.getElementById('lastUpdated');
     const divGlobalConfirmedCases = document.getElementById('globalConfirmedCases');
@@ -145,16 +141,17 @@ function updateInfoCards(globalData, countriesData) {
         const tdCasos = document.createElement('td');
 
         tdPosicion.textContent = i + 1;
-        tdPais.textContent = country.country;
+        tdPais.textContent = countryNamesES[country.countryInfo.iso2] || country.country;
         tdCasos.textContent = country.cases.toLocaleString('en');
 
         const tr = document.createElement('tr');
+        tr.id = country.country;
         tr.appendChild(tdPosicion);
         tr.appendChild(tdPais);
         tr.appendChild(tdCasos);
 
         tr.addEventListener('click', evt => {
-            const country = evt.currentTarget.children[1].textContent;
+            const country = evt.currentTarget.id;
             closeAllInfoWindows();
             google.maps.event.trigger(markers[country], 'click');
         });
@@ -169,7 +166,7 @@ function updateInfoCards(globalData, countriesData) {
     divGlobalDeaths.textContent = globalData.deaths.toLocaleString('en');
 }
 
-function addCountryMarkers(countriesData, map) {
+function addCountryMarkers(countriesData, countryNamesES, map) {
     const icon = {
         url: 'https://image.flaticon.com/icons/png/128/2659/2659980.png',
         scaledSize: new google.maps.Size(24, 24),
@@ -177,7 +174,7 @@ function addCountryMarkers(countriesData, map) {
     };
 
     for (const country of countriesData) {
-        const info = generateCountryInfoHTML(country);
+        const info = generateCountryInfoHTML(country, countryNamesES);
         const infoWindow = new google.maps.InfoWindow({
             content: info
         });
@@ -186,7 +183,7 @@ function addCountryMarkers(countriesData, map) {
             map: map,
             icon: icon,
             position: new google.maps.LatLng(country.countryInfo.lat, country.countryInfo.long),
-            title: `${country.country}`
+            title: `${countryNamesES[country.countryInfo.iso2] || country.country}`
         });
 
         markers[country.country] = marker;
@@ -194,7 +191,7 @@ function addCountryMarkers(countriesData, map) {
             closeAllInfoWindows();
             infoWindow.open(map, marker);
             var divName = document.createElement('div');
-            new makeControl(divName, country);
+            new makeControl(divName, country, countryNamesES);
 
             let fullInfoWindow = setInterval(() => {
                 if (!infoWindow.getMap()) {
@@ -209,6 +206,14 @@ function addCountryMarkers(countriesData, map) {
 
         objInfoWindows[country.country] = infoWindow;
     }
+}
+
+function cacheAPIData(key, jsonData) {
+    localStorage.setItem(key, JSON.stringify(jsonData));
+}
+
+function retrieveCachedAPIData(key) {
+    return JSON.parse(localStorage.getItem(key));
 }
 
 function closeAllInfoWindows() {
