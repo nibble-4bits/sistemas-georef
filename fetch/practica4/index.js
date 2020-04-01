@@ -142,7 +142,12 @@ function updateInfoCards(globalData, countriesData, countryNamesES) {
 
         tdPosicion.textContent = i + 1;
         tdPais.textContent = countryNamesES[country.countryInfo.iso2] || country.country;
-        tdCasos.textContent = country.cases.toLocaleString('en');
+
+        const spanCasos = document.createElement('span');
+        spanCasos.textContent = country.cases.toLocaleString('en');
+        spanCasos.className = 'badge badge-pill badge-warning';
+
+        tdCasos.appendChild(spanCasos);
 
         const tr = document.createElement('tr');
         tr.id = country.country;
