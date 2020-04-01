@@ -33,6 +33,7 @@ body {
 
 #countryCasesTable tr:hover :not(th) {
     background-color: rgb(220, 220, 220);
+    cursor: pointer;
 }
 
 #map {
