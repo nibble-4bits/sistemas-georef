@@ -1,6 +1,6 @@
 'use strict';
 
-const BASE_API_URL = 'https://corona.lmao.ninja';
+const BASE_API_URL = 'https://corona.lmao.ninja/v2';
 let objInfoWindows = {};
 let markers = {};
 
