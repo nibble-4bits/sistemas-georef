@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+
+    <script defer src="js/auth.js"></script>
+    <script defer src="js/index.js"></script>
+
+    <title>Estim</title>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Logo</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#modalCuenta" class="modal-trigger">Mi cuenta</a></li>
+                <li><a href="#">Salir</a></li>
+                <li><a href="#modalIngresar" class="modal-trigger">Ingresar</a></li>
+                <li><a href="#modalRegistrate" class="modal-trigger">Regístrate</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col s12 l6 xl4">
+                <img src="assets/terraria.jpg" alt="Terraria" style="width: 100%; height: 100%;">
+                <p>Terraria</p>
+                <p>$109.99</p>
+            </div>
+            <div class="col s12 l6 xl4">
+                <img src="assets/csgo.jpg" alt="Counter Strike: Global Offensive" style="width: 100%;">
+                <p>CSGO</p>
+                <p>$99.99</p>
+            </div>
+            <div class="col s12 l6 xl4">
+                <img src="assets/simcity4.jpg" alt="Sim City 4" style="width: 100%;">
+                <p>Sim City 4</p>
+                <p>$49.99</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Mi Cuenta -->
+    <div id="modalCuenta" class="modal">
+        <div class="modal-content">
+            <h4>Mi cuenta</h4>
+            <div class="row">
+                info de la cuenta
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
+        </div>
+    </div>
+
+    <!-- Modal Ingresar -->
+    <div id="modalIngresar" class="modal">
+        <form id="loginForm">
+            <div class="modal-content">
+                <h4>Ingresar</h4>
+                <div class="row">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="email" type="email" class="validate" required>
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="password" type="password" class="validate" required>
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
+                <button class="waves-effect waves-green btn" type="submit">Ingresar</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal Regístrate -->
+    <div id="modalRegistrate" class="modal">
+        <form>
+            <div class="modal-content">
+                <h4>Regístrate</h4>
+                <div class="row">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="remail" type="email" class="validate" required>
+                            <label for="remail">Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="rpassword" type="password" class="validate" required>
+                            <label for="rpassword">Password</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
+                <button class="waves-effect waves-green btn" type="submit">Ingresar</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
