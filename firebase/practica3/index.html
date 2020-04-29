@@ -7,15 +7,18 @@
 
     <!-- Materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
 
-    <script defer src="js/auth.js"></script>
     <script defer src="js/index.js"></script>
+    <script defer src="js/auth.js"></script>
 
     <title>Estim</title>
 </head>
@@ -23,43 +26,25 @@
 <body>
     <nav>
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Logo</a>
+            <a href="#" class="brand-logo">Estim</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="#modalCuenta" class="modal-trigger">Mi cuenta</a></li>
-                <li><a href="#">Salir</a></li>
-                <li><a href="#modalIngresar" class="modal-trigger">Ingresar</a></li>
-                <li><a href="#modalRegistrate" class="modal-trigger">Regístrate</a></li>
+                <li><a href="#modalCuenta" class="modal-trigger logged-in" hidden>Mi cuenta</a></li>
+                <li><a href="#" id="btnSalir" class="logged-in" hidden>Salir</a></li>
+                <li><a href="#modalIngresar" class="modal-trigger logged-out" hidden>Ingresar</a></li>
+                <li><a href="#modalRegistrate" class="modal-trigger logged-out" hidden>Regístrate</a></li>
             </ul>
         </div>
     </nav>
 
     <div class="container">
-        <div class="row">
-            <div class="col s12 l6 xl4">
-                <img src="assets/terraria.jpg" alt="Terraria" style="width: 100%; height: 100%;">
-                <p>Terraria</p>
-                <p>$109.99</p>
-            </div>
-            <div class="col s12 l6 xl4">
-                <img src="assets/csgo.jpg" alt="Counter Strike: Global Offensive" style="width: 100%;">
-                <p>CSGO</p>
-                <p>$99.99</p>
-            </div>
-            <div class="col s12 l6 xl4">
-                <img src="assets/simcity4.jpg" alt="Sim City 4" style="width: 100%;">
-                <p>Sim City 4</p>
-                <p>$49.99</p>
-            </div>
-        </div>
+        <div class="row" id="game-list"></div>
     </div>
 
     <!-- Modal Mi Cuenta -->
     <div id="modalCuenta" class="modal">
         <div class="modal-content">
             <h4>Mi cuenta</h4>
-            <div class="row">
-                info de la cuenta
-            </div>
+            <div class="row" id="accountInfo"></div>
         </div>
         <div class="modal-footer">
             <a href="#" class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
@@ -89,35 +74,59 @@
             </div>
             <div class="modal-footer">
                 <a href="#" class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
-                <button class="waves-effect waves-green btn" type="submit">Ingresar</button>
+                <button class="waves-effect waves-green btn" type="submit">Ingresar
+                    <i class="material-icons right">send</i>
+                </button>
             </div>
         </form>
+        <div class="row">
+            <div class="col s12">
+                <button class="waves-effect waves-light btn" onclick="entrarGoogle()">Ingresar con Google</button>
+            </div>
+        </div>
     </div>
 
     <!-- Modal Regístrate -->
     <div id="modalRegistrate" class="modal">
-        <form>
+        <form id="signupForm">
             <div class="modal-content">
                 <h4>Regístrate</h4>
                 <div class="row">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="remail" type="email" class="validate" required>
-                            <label for="remail">Email</label>
+                            <input id="rname" type="text" class="validate" required>
+                            <label for="rname">Nombre</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s12">
+                        <div class="input-field col s6">
+                            <input id="remail" type="email" class="validate" required>
+                            <label for="remail">Email</label>
+                        </div>
+                        <div class="input-field col s6">
                             <input id="rpassword" type="password" class="validate" required>
                             <label for="rpassword">Password</label>
                         </div>
                     </div>
-
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="rphone" type="tel" class="validate" required>
+                            <label for="rphone">Teléfono</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="raddress" type="text" class="validate" required>
+                            <label for="raddress">Dirección</label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <a href="#" class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
-                <button class="waves-effect waves-green btn" type="submit">Ingresar</button>
+                <button class="waves-effect waves-green btn" type="submit">Registrarse
+                    <i class="material-icons right">send</i>
+                </button>
             </div>
         </form>
     </div>
