@@ -14,3 +14,51 @@ var instances = M.Modal.init(elems, {});
 
 const auth = firebase.auth();
 const db = firebase.firestore();
+
+async function showAccountInfo(user) {
+    const accountInfo = document.getElementById('accountInfo');
+    if (user) {
+        const userInfo = await db.collection('usuarios').doc(user.uid).get();
+        const html = `
+            <p>Nombre: ${userInfo.data().name}</p>
+            <p>Correo: ${user.email}</p>
+            <p>Teléfono: ${userInfo.data().phone}</p>
+            <p>Dirección: ${userInfo.data().address}</p>
+        `;
+        accountInfo.innerHTML = html;
+
+        document.querySelectorAll('.logged-out').forEach(el => {
+            el.hidden = true;
+        });
+        document.querySelectorAll('.logged-in').forEach(el => {
+            el.hidden = false;
+        });
+    }
+    else {
+        document.querySelectorAll('.logged-out').forEach(el => {
+            el.hidden = false;
+        });
+        document.querySelectorAll('.logged-in').forEach(el => {
+            el.hidden = true;
+        });
+    }
+}
+
+async function showGames(data) {
+    const gameList = document.getElementById('game-list');
+    let html = '';
+
+    if (data) {
+        data.forEach(doc => {
+            const col = `
+                <div class="col s12 l6 xl4">
+                    <img src="${doc.data().imagen}" alt="${doc.data().nombre}">
+                    <p>${doc.data().nombre}</p>
+                    <p>$${doc.data().precio}</p>
+                </div>
+            `;
+            html += col;
+        });
+        gameList.innerHTML = html;
+    }
+}
