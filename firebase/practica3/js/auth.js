@@ -2,6 +2,12 @@ const loginForm = document.getElementById('loginForm');
 const signupForm = document.getElementById('signupForm');
 const btnSalir = document.getElementById('btnSalir');
 
+const authType = {
+    EMAIL: 1,
+    GOOGLE: 2
+}
+let currentAuth;
+
 auth.onAuthStateChanged(user => {
     if (user) {
         showAccountInfo(user);
@@ -11,12 +17,14 @@ auth.onAuthStateChanged(user => {
     }
     else {
         showGames();
-        showAccountInfo();
     }
+    updateNavbar(user);
 });
 
 loginForm.addEventListener('submit', async function (e) {
     e.preventDefault();
+
+    currentAuth = authType.EMAIL;
 
     const email = this['email'].value;
     const password = this['password'].value;
@@ -59,9 +67,11 @@ btnSalir.addEventListener('click', async e => {
     alert('salio')
 });
 
-async function entrarGoogle() {
+async function loginGoogleOAuth() {
+    currentAuth = authType.GOOGLE;
     const provider = new firebase.auth.GoogleAuthProvider();
     const res = await firebase.auth().signInWithPopup(provider);
-    const token = res.credential.accessToken;
-    console.log(token);
+
+    M.Modal.getInstance(document.querySelector('#modalIngresar')).close();
+    loginForm.reset();
 }
