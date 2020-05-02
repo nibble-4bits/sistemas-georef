@@ -35,7 +35,17 @@ loginForm.addEventListener('submit', async function (e) {
         M.Modal.getInstance(document.querySelector('#modalIngresar')).close();
         this.reset();
     } catch (err) {
-        console.error(err);
+        switch (err.code) {
+            case 'auth/user-not-found':
+                M.toast({html: 'Usuario no encontrado.'})
+                break;
+            case 'auth/wrong-password':
+                M.toast({html: 'La contraseña introducida es incorrecta.'})
+                break;
+            default:
+                M.toast({html: 'Ha ocurrido un error.'})
+                break;
+        }
     }
 });
 
@@ -56,7 +66,17 @@ signupForm.addEventListener('submit', async function (e) {
         M.Modal.getInstance(document.querySelector('#modalRegistrate')).close();
         this.reset();
     } catch (err) {
-        console.error(err);
+        switch (err.code) {
+            case 'auth/weak-password':
+                M.toast({html: 'Contraseña insegura. Su contraseña debe contener al menos 6 carácteres'})
+                break;
+            case 'auth/email-already-in-use':
+                M.toast({html: 'El correo que está intentando utilizar ya ha sido registrado.'})
+                break;
+            default:
+                M.toast({html: 'Ha ocurrido un error.'})
+                break;
+        }
     }
 });
 
