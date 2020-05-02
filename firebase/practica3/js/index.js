@@ -61,4 +61,7 @@ async function showGames(data) {
         });
         gameList.innerHTML = html;
     }
+    else {
+        gameList.innerHTML = '<p>Ingrese para ver nuestro catálogo de videojuegos</p>';
+    }
 }
