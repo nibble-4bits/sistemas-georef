@@ -17,16 +17,29 @@ const db = firebase.firestore();
 
 async function showAccountInfo(user) {
     const accountInfo = document.getElementById('accountInfo');
-    if (user) {
+    let html;
+
+    if (currentAuth === authType.EMAIL) {
         const userInfo = await db.collection('usuarios').doc(user.uid).get();
-        const html = `
+        html = `
             <p>Nombre: ${userInfo.data().name}</p>
             <p>Correo: ${user.email}</p>
             <p>Teléfono: ${userInfo.data().phone}</p>
             <p>Dirección: ${userInfo.data().address}</p>
         `;
-        accountInfo.innerHTML = html;
+    }
+    else if (currentAuth === authType.GOOGLE) {
+        html = `
+            <p>Nombre: ${user.displayName}</p>
+            <p>Correo: ${user.email}</p>
+            <img src="${user.photoURL}" />
+        `;
+    }
+    accountInfo.innerHTML = html;
+}
 
+function updateNavbar(user) {
+    if (user) {
         document.querySelectorAll('.logged-out').forEach(el => {
             el.hidden = true;
         });
