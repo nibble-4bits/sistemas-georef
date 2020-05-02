@@ -10,6 +10,7 @@ auth.onAuthStateChanged(user => {
         });
     }
     else {
+        showGames();
         showAccountInfo();
     }
 });
@@ -57,3 +58,10 @@ btnSalir.addEventListener('click', async e => {
     await auth.signOut();
     alert('salio')
 });
+
+async function entrarGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    const res = await firebase.auth().signInWithPopup(provider);
+    const token = res.credential.accessToken;
+    console.log(token);
+}
