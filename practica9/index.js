@@ -53,6 +53,18 @@ function initMap() {
                 ]
             },
             {
+                featureType: "administrative.province",
+                elementType: "geometry.stroke",
+                stylers: [
+                    {
+                        color: "#000000"
+                    },
+                    {
+                        weight: 1
+                    }
+                ]
+            },
+            {
                 featureType: "landscape.man_made",
                 elementType: "geometry.fill",
                 stylers: [
