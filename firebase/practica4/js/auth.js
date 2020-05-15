@@ -1,4 +1,5 @@
 let markers = {};
+let infoWindows = {};
 
 auth.onAuthStateChanged(user => {
     updateNavbar(user);
@@ -39,11 +40,25 @@ auth.onAuthStateChanged(user => {
                         `
                     });
                     infoWindow.open(map, marker);
+
+                    infoWindows[user.uid] = infoWindow;
                 }
                 else if (change.type === 'modified') {
                     markers[user.uid].setPosition(coords);
+                    markers[user.uid].setIcon({
+                        url: iconUrl,
+                        scaledSize: new google.maps.Size(40, 40),
+                        origin: new google.maps.Point(0, 0)
+                    });
+                    infoWindows[user.uid].setContent = `
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div>${doc.name}</div>
+                            <div>${new Date(doc.lastConnection).toLocaleString()}</div>
+                        <div>
+                    `;
                 }
                 else if (change.type === 'removed') {
+                    infoWindows[user.uid].close();
                     markers[user.uid].setMap(null);
                 }
             });
