@@ -9,13 +9,17 @@ firebase.initializeApp({
     appId: "1:946167290542:web:2d2976e65ea18ce222ab3f"
 });
 
-var elems = document.querySelectorAll('.modal');
-var instances = M.Modal.init(elems, {});
+let modalElems = document.querySelectorAll('.modal');
+M.Modal.init(modalElems, {});
+let sideNavElems = document.querySelectorAll('.sidenav');
+M.Sidenav.init(sideNavElems, {});
 
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-var map = null;
+let map = null;
+let watchPositionId = null;
+
 function initMap() {
     const mapProps = {
         center: { lat: 21.13, lng: -101.68 },
@@ -26,7 +30,6 @@ function initMap() {
 }
 
 async function showAccountInfo(user) {
-    const accountInfo = document.getElementById('accountInfo');
     let html;
 
     const userInfo = await db.collection('usuarios').doc(user.uid).get();
@@ -43,40 +46,42 @@ async function showAccountInfo(user) {
 function updateNavbar(user) {
     if (user) {
         document.querySelectorAll('.logged-out').forEach(el => {
-            el.hidden = true;
+            el.style.display = 'none';
         });
         document.querySelectorAll('.logged-in').forEach(el => {
-            el.hidden = false;
+            el.style.display = 'block';
         });
     }
     else {
         document.querySelectorAll('.logged-out').forEach(el => {
-            el.hidden = false;
+            el.style.display = 'block';
         });
         document.querySelectorAll('.logged-in').forEach(el => {
-            el.hidden = true;
+            el.style.display = 'none';
         });
     }
 }
 
-async function showGames(data) {
-    const gameList = document.getElementById('map');
-    let html = '';
-
-    if (data) {
-        data.forEach(doc => {
-            const col = `
-                <div class="col s12 l6 xl4">
-                    <img src="${doc.data().imagen}" alt="${doc.data().nombre}">
-                    <p>${doc.data().nombre}</p>
-                    <p>$${doc.data().precio}</p>
-                </div>
-            `;
-            html += col;
-        });
-        gameList.innerHTML = html;
+function sharePosition(user) {
+    if (navigator.geolocation) {
+        watchPositionId = navigator.geolocation.watchPosition(
+            pos => {
+                db.collection('usuarios').doc(user.uid).update({
+                    lat: pos.coords.latitude,
+                    lng: pos.coords.longitude,
+                    lastConnection: new Date().getTime()
+                });
+            },
+            error => {
+                console.log(error);
+            },
+            { enableHighAccuracy: true, timeout: 2000, maximumAge: 5000 }
+        );
     }
-    else {
-        gameList.innerHTML = '<p>Ingrese para ver nuestro catálogo de videojuegos</p>';
+}
+
+function clearWatch() {
+    if (navigator.geolocation) {
+        navigator.geolocation.clearWatch(watchPositionId);
     }
 }
