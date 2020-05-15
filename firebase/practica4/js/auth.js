@@ -29,9 +29,12 @@ auth.onAuthStateChanged(user => {
                     });
 
                     markers[user.uid] = marker;
-                    
+
                     const infoWindow = new google.maps.InfoWindow({
-                        content: doc.name
+                        content: `
+                            <div>${doc.name}</div>
+                            <div>Última conexión: ${new Date(doc.lastConnection).toLocaleString()}</div>
+                        `
                     });
                     infoWindow.open(map, marker);
                 }
