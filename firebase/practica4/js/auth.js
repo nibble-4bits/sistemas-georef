@@ -17,18 +17,19 @@ auth.onAuthStateChanged(user => {
                     'https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Ball-Pink.png' :
                     'https://segat.gob.pe/images/marker_router.png';
 
-                const marker = new google.maps.Marker({
-                    position: coords,
-                    map: map,
-                    icon: {
-                        url: iconUrl,
-                        scaledSize: new google.maps.Size(40, 40),
-                        origin: new google.maps.Point(0, 0)
-                    }
-                });
-
                 if (change.type === 'added') {
+                    const marker = new google.maps.Marker({
+                        position: coords,
+                        map: map,
+                        icon: {
+                            url: iconUrl,
+                            scaledSize: new google.maps.Size(40, 40),
+                            origin: new google.maps.Point(0, 0)
+                        }
+                    });
+
                     markers[user.uid] = marker;
+                    
                     const infoWindow = new google.maps.InfoWindow({
                         content: doc.name
                     });
