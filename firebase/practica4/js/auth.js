@@ -27,13 +27,12 @@ auth.onAuthStateChanged(user => {
                     }
                 });
 
-                const infoWindow = new google.maps.InfoWindow({
-                    content: doc.name
-                });
-                infoWindow.open(map, marker);
-
                 if (change.type === 'added') {
                     markers[user.uid] = marker;
+                    const infoWindow = new google.maps.InfoWindow({
+                        content: doc.name
+                    });
+                    infoWindow.open(map, marker);
                 }
                 else if (change.type === 'modified') {
                     markers[user.uid].setPosition(coords);
