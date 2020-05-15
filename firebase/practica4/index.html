@@ -8,33 +8,44 @@
     <!-- Materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
 
-    <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <link rel="stylesheet" href="css/style.css">
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
 
+    <script defer src="js/constants.js"></script>
     <script defer src="js/index.js"></script>
     <script defer src="js/auth.js"></script>
 
-    <title>Estim</title>
+    <script id="gmapsScript"></script>
+
+    <title>Rastreador</title>
 </head>
 
 <body>
     <nav>
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Estim</a>
+            <a href="#" class="brand-logo">Rastreador</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="#modalCuenta" class="modal-trigger logged-in" hidden>Mi cuenta</a></li>
-                <li><a href="#" id="btnSalir" class="logged-in" hidden>Salir</a></li>
-                <li><a href="#modalIngresar" class="modal-trigger logged-out" hidden>Ingresar</a></li>
-                <li><a href="#modalRegistrate" class="modal-trigger logged-out" hidden>Regístrate</a></li>
+                <li><a href="#modalCuenta" class="modal-trigger logged-in">Mi cuenta</a></li>
+                <li><a href="#" id="btnSalir" class="logged-in">Salir</a></li>
+                <li><a href="#modalIngresar" class="modal-trigger logged-out">Ingresar</a></li>
+                <li><a href="#modalRegistrate" class="modal-trigger logged-out">Regístrate</a></li>
             </ul>
         </div>
     </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="#modalCuenta" class="modal-trigger logged-in">Mi cuenta</a></li>
+        <li><a href="#" id="btnSalir" class="logged-in">Salir</a></li>
+        <li><a href="#modalIngresar" class="modal-trigger logged-out">Ingresar</a></li>
+        <li><a href="#modalRegistrate" class="modal-trigger logged-out">Regístrate</a></li>
+    </ul>
 
     <div class="container">
         <div class="row" id="map"></div>
