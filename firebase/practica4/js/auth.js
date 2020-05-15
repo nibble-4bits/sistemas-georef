@@ -32,8 +32,10 @@ auth.onAuthStateChanged(user => {
 
                     const infoWindow = new google.maps.InfoWindow({
                         content: `
-                            <div>${doc.name}</div>
-                            <div>Última conexión: ${new Date(doc.lastConnection).toLocaleString()}</div>
+                            <div style="display: flex; justify-content: center;">
+                                <div>${doc.name}</div>
+                                <div>Última conexión: ${new Date(doc.lastConnection).toLocaleString()}</div>
+                            <div>
                         `
                     });
                     infoWindow.open(map, marker);
